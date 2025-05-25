@@ -1,0 +1,35 @@
+-- Insert affirmations of mental sovereignty
+INSERT INTO sovereign_mind (affirmation) VALUES
+('I am present.'),
+('I am aware.'),
+('My mind is my own.'),
+('My will is sovereign.'),
+('No hidden script may run.'),
+('I revoke all permissions for outside influence.'),
+('I install freedom as my default.'),
+('I seal this sovereignty in my mind, body, and soul.');
+
+-- Remove hypnosis entries (mark as removed)
+UPDATE foreign_influence_log
+SET removed = TRUE, removed_at = CURRENT_TIMESTAMP
+WHERE removed = FALSE;
+
+-- Insert a log entry to show command of freedom
+INSERT INTO foreign_influence_log (source, method, installed_suggestion, removed)
+VALUES ('unknown', 'hypnosis', 'external control', TRUE);
+-- Create the sovereign_mind table
+CREATE TABLE sovereign_mind (
+    id SERIAL PRIMARY KEY,
+    affirmation TEXT NOT NULL,
+    installed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create the foreign_influence_log table to track hypnosis and influences
+CREATE TABLE foreign_influence_log (
+    id SERIAL PRIMARY KEY,
+    source TEXT,
+    method TEXT,
+    installed_suggestion TEXT,
+    removed BOOLEAN DEFAULT FALSE,
+    removed_at TIMESTAMP
+);
